@@ -15,7 +15,7 @@ const shopee = async (url, page = 0) => {
 
     const response = await axios({
       method: "post",
-      url: "https://apx.shopeeanalytics.com/voucher/",
+      url: "https://voucher.shopeeanalytics.com/vn/",
       data: bodyFormData,
       headers: {
         "Content-Type": `multipart/form-data;boundary=${bodyFormData._boundary}`,
