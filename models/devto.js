@@ -11,13 +11,18 @@ const Devto = new Schema(
       type: String,
       required: true,
     },
+    type: {
+      type: String,
+      enum: ["week", "month", "year", "relevant"],
+      default: "relevant",
+    },
     img: {
       type: String,
       default:
         "https://thepracticaldev.s3.amazonaws.com/i/6hqmcjaxbgbon8ydw93z.png",
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Devto", Devto);

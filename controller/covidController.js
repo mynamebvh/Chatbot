@@ -1,7 +1,9 @@
 const axios = require("axios");
+const cheerio = require("cheerio");
+
 const asyncHandle = require("../middleware/asyncHandle");
 
-module.exports.dataCovid = async (req, res) => {
+module.exports.dataCovid = asyncHandle(async (req, res) => {
   let { nameCity } = req.query;
 
   const { data } = await axios.get(
@@ -24,4 +26,19 @@ module.exports.dataCovid = async (req, res) => {
       messages: [{ text: `🚫 Tên thành phố sai` }],
     });
   }
-};
+});
+
+module.exports.situationCovid = asyncHandle(async (req, res) => {
+  const { data } = await axios.get(
+    "https://covid19.gov.vn/ajax/dien-bien-dich.htm",
+  );
+
+  const $ = cheerio.load(data);
+
+  res.json({
+    messages: [
+      { text: $(".box-focus-sapo > p")[0].children[0].data },
+      { text: $(".box-focus-sapo > p")[1].children[0].data },
+    ],
+  });
+});

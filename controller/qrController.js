@@ -1,7 +1,7 @@
 const axios = require("axios");
 const asyncHandle = require("../middleware/asyncHandle");
 
-module.exports.qrGenerator = async (req, res) => {
+module.exports.qrGenerator = asyncHandle(async (req, res) => {
   let { text } = req.query;
 
   res.json({
@@ -16,4 +16,4 @@ module.exports.qrGenerator = async (req, res) => {
       },
     ],
   });
-};
+});

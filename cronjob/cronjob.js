@@ -11,7 +11,7 @@ const Society = require("../models/society");
 const Sport = require("../models/sport");
 const World = require("../models/world");
 
-const devtoCrawl = require("../utils/crawlDevto");
+const { devto, viblo } = require("../utils/crawlDev");
 
 const covidCron = new CronJob("0 */5 * * * *", async () => {
   crawl(Covid, "https://dantri.com.vn/suc-khoe/dai-dich-covid-19.htm");
@@ -57,8 +57,9 @@ const worldCron = new CronJob("0 */5 * * * *", () => {
   crawl(World, "https://dantri.com.vn/the-gioi.htm");
 });
 
-const devtoCron = new CronJob("0 */5 * * * *", () => {
-  devtoCrawl();
+const devCron = new CronJob("0 */5 * * * *", () => {
+  devto();
+  viblo();
 });
 
 module.exports = {
@@ -69,7 +70,7 @@ module.exports = {
     sportCron.start();
     societyCron.start();
     worldCron.start();
-    devtoCron.start();
+    devCron.start();
   },
   startNow: () => {
     crawl(Covid, "https://dantri.com.vn/suc-khoe/dai-dich-covid-19.htm");
@@ -78,6 +79,7 @@ module.exports = {
     crawl(Sport, "https://dantri.com.vn/the-thao.htm");
     crawl(World, "https://dantri.com.vn/the-gioi.htm");
     hotNew();
-    devtoCrawl();
+    devto();
+    viblo();
   },
 };
