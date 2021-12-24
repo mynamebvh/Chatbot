@@ -1,11 +1,11 @@
-module.exports = (arr) => {
+module.exports = (arr, cre = "Nguồn báo dantri") => {
   let arrElement = [];
 
   arr.map((v) => {
     arrElement.push({
       title: v.title,
       image_url: v.img,
-      subtitle: "Nguồn báo dantri",
+      subtitle: cre,
       buttons: [
         {
           type: "web_url",
@@ -15,6 +15,7 @@ module.exports = (arr) => {
       ],
     });
   });
+
   return {
     messages: [
       {
