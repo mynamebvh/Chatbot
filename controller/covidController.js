@@ -28,17 +28,19 @@ module.exports.dataCovid = asyncHandle(async (req, res) => {
   }
 });
 
-module.exports.situationCovid = asyncHandle(async (req, res) => {
+module.exports.situationCovid = async (req, res) => {
   const { data } = await axios.get(
     "https://covid19.gov.vn/ajax/dien-bien-dich.htm",
   );
 
   const $ = cheerio.load(data);
 
+  console.log();
+  console.log();
   res.json({
     messages: [
-      { text: $(".box-focus-sapo > p")[0].children[0].data },
-      { text: $(".box-focus-sapo > p")[1].children[0].data },
+      { text: $(".box-focus-sapo > div > div")[0].children[0].data },
+      { text: $(".box-focus-sapo > div")[1].children[0].data },
     ],
   });
-});
+};
